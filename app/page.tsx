@@ -1,64 +1,107 @@
+"use client"
 import Image from "next/image";
+import { faqs } from "../data/faqs";
+import { useState } from "react";
 
 export default function Home() {
+
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div>
+      <header>
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+          src="/assets/images/background-pattern-desktop.svg"
+          alt="background"
+          width={1440}
+          height={200}
+          loading="eager"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </header>
+      <main className="flex align-center justify-center items-center">
+        <section className="flex-row w-[500px]  bg-[white] text-[black] rounded-lg p-8">
+          <article className="flex align-center items-center">
+            <Image src="/assets/images/icon-star.svg" alt="" width={40} height={40}  className="w-[40px] h-[40px]"/>
+            <h1 className="text-5xl font-bold p-5">FAQs</h1>
+          </article>      
+          {/* 
+            Map wykorzystanie przy elementach, które są powtarzalne
+            Łatwa zmiana zawartośći poprzez zmianę w pliku .ts         
+            article key={index} uniklany klucz dla kazdego elementu ale nie jest to wzorowe rozwiązanie,
+            lepiej uzyc unikalnego id w obiekcie FAQ i potem uzyc go jako key={faq.id}
+          */}
+
+
+
+          {faqs.map((faq, index) => (
+            <article key={index} >
+              <h2>
+                {faq.question}
+              </h2>
+              <button onClick={() => setActiveIndex(activeIndex === index ? null : index)}>
+            
+
+                {/* jest to krótsze a zarazem wydajnieszje */}
+                <Image 
+                  src={activeIndex === index ? "/assets/images/icon-minus.svg" : "/assets/images/icon-plus.svg"} 
+                  alt="" 
+                  width={30}
+                  height={30} 
+                  className="w-[30px] h-[30px]"
+                />
+                {/* 
+                Jest lepszy sposób niz wgrywanie dwoch obrazków mozna je wgrywac zapomoca warunku w src
+                <Image src="/assets/images/icon-plus.svg" alt="" width={30} height={30} className={activeIndex === index ? "hidden" : "show"} />
+                <Image src="/assets/images/icon-minus.svg" alt="" width={30} height={30} className={activeIndex === index ? "show" : "hidden"} /> */}
+              </button>
+              <p className={activeIndex === index ? "" : "hidden"}>
+                {faq.answer}
+              </p>
+            </article>
+          ))}
+  
+
+{/* 
+          <article>
+            <h2>What is Frontend Mentor, and how will it help me? </h2>
+            <button onClick={() => console.log("clicked")}>
+              <Image src="/assets/images/icon-plus.svg" alt="" width={30} height={30} />
+            </button>
+            <p>
+              Frontend Mentor offers realistic coding challenges to help developers improve their 
+              frontend coding skills with projects in HTML, CSS, and JavaScript. It's suitable for 
+              all levels and ideal for portfolio building.
+            </p>
+          </article>
+
+          <article>
+            <h2>Is Frontend Mentor free?</h2>
+
+            <p>
+              Yes, Frontend Mentor offers both free and premium coding challenges, with the free 
+              option providing access to a range of projects suitable for all skill levels.
+            </p>
+          </article>
+
+          <article>
+            <h2>Can I use Frontend Mentor projects in my portfolio?</h2>
+
+            <p>
+              Yes, you can use projects completed on Frontend Mentor in your portfolio. It's an excellent
+              way to showcase your skills to potential employers!
+            </p>
+          </article>
+
+          <article>
+            <h2>How can I get help if I'm stuck on a Frontend Mentor challenge?</h2>
+
+            <p>
+              The best place to get help is inside Frontend Mentor's Discord community. There's a help 
+              channel where you can ask questions and seek support from other community members.
+            </p>
+          </article>
+           */}
+        </section>
       </main>
     </div>
   );
