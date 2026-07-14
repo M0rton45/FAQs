@@ -11,6 +11,7 @@ export default function Home() {
     <div>
       <header>
         <Image
+          className="absolute -z-10"
           src="/assets/images/background-pattern-desktop.svg"
           alt="background"
           width={1440}
@@ -19,7 +20,7 @@ export default function Home() {
         />
       </header>
       <main className="flex align-center justify-center items-center">
-        <section className="flex-row w-[500px]  bg-[white] text-[black] rounded-lg p-8">
+        <section className="flex-row mt-[100px] w-[600px] min-h-[500px] bg-[white] text-[black] rounded-lg p-8">
           <article className="flex align-center items-center">
             <Image src="/assets/images/icon-star.svg" alt="" width={40} height={40}  className="w-[40px] h-[40px]"/>
             <h1 className="text-5xl font-bold p-5">FAQs</h1>
@@ -31,16 +32,12 @@ export default function Home() {
             lepiej uzyc unikalnego id w obiekcie FAQ i potem uzyc go jako key={faq.id}
           */}
 
-
-
           {faqs.map((faq, index) => (
-            <article key={index} >
+            <article key={index} className="flex flex-wrap align-center items-center justify-between p-4">
               <h2>
                 {faq.question}
               </h2>
               <button onClick={() => setActiveIndex(activeIndex === index ? null : index)}>
-            
-
                 {/* jest to krótsze a zarazem wydajnieszje */}
                 <Image 
                   src={activeIndex === index ? "/assets/images/icon-minus.svg" : "/assets/images/icon-plus.svg"} 
