@@ -20,7 +20,7 @@ export default function Home() {
         />
       </header>
       <main className="flex align-center justify-center items-center">
-        <section className="flex-row mt-[100px] w-[600px] min-h-[500px] bg-[white] text-[black] rounded-lg p-8">
+        <section className="flex-row mt-[180px] w-full max-w-[650px] bg-[white] text-[black] rounded-lg p-4 md:p-8">
           <article className="flex align-center items-center">
             <Image src="/assets/images/icon-star.svg" alt="" width={40} height={40}  className="w-[40px] h-[40px]"/>
             <h1 className="text-5xl font-bold p-5">FAQs</h1>
@@ -33,8 +33,8 @@ export default function Home() {
           */}
 
           {faqs.map((faq, index) => (
-            <article key={index} className="flex flex-wrap align-center items-center justify-between p-4">
-              <h2>
+            <article key={index} className="flex flex-wrap align-center items-center justify-between p-4 border-b border-[hsl(275,10%,97%)]">
+              <h2 className="text-[hsl(292,42%,14%)] font-semibold">
                 {faq.question}
               </h2>
               <button onClick={() => setActiveIndex(activeIndex === index ? null : index)}>
@@ -51,7 +51,7 @@ export default function Home() {
                 <Image src="/assets/images/icon-plus.svg" alt="" width={30} height={30} className={activeIndex === index ? "hidden" : "show"} />
                 <Image src="/assets/images/icon-minus.svg" alt="" width={30} height={30} className={activeIndex === index ? "show" : "hidden"} /> */}
               </button>
-              <p className={activeIndex === index ? "" : "hidden"}>
+              <p className={activeIndex === index ? "text-[hsl(292,16%,49%)] mt-6 mb-3 mr-9 font-normal" : "hidden"}>
                 {faq.answer}
               </p>
             </article>
